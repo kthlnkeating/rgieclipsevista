@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="com.raygroupintl.eclipse.vista.contribution1"
+            nameFilter="*.m"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               label="M Refactor"
+               path="additions"
+               id="com.raygroupintl.eclipse.vista.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Expand Keywords"
+               class="com.raygroupintl.eclipse.vista.popup.actions.ExpandKeywords"
+               menubarPath="com.raygroupintl.eclipse.vista.menu1/group1"
+               enablesFor="1"
+               id="com.raygroupintl.eclipse.vista.newAction">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>
