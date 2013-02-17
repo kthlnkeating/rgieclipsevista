@@ -17,7 +17,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
-import com.raygroupintl.vista.mtoken.Routine;
+import com.raygroupintl.m.struct.MRefactorSettings;
+import com.raygroupintl.m.struct.MRoutineContent;
+import com.raygroupintl.m.token.MRoutine;
+import com.raygroupintl.m.token.MTFSupply;
+import com.raygroupintl.m.token.TFRoutine;
 
 public class ExpandKeywords implements IObjectActionDelegate {
 
@@ -51,10 +55,14 @@ public class ExpandKeywords implements IObjectActionDelegate {
 						ITextFileBuffer buffer = mgr.getTextFileBuffer(path, LocationKind.IFILE);
 						if (buffer != null) {							
 							InputStream is = this.lastSelected.getContents();
-							Routine r = Routine.getInstance(is);
+							MTFSupply m = new MTFSupply();
+							TFRoutine tf = new TFRoutine(m);
+							MRoutineContent content = MRoutineContent.getInstance(path.lastSegment().split(".m")[0], is);
+							MRoutine r = tf.tokenize(content);
 							is.close();
-							r.beautify();
-							String v = r.getStringValue();
+							MRefactorSettings settings = new MRefactorSettings();
+							r.refactor(settings);
+							String v = r.toValue().toString();
 							buffer.getDocument().set(v);							
 						}												
 					}					
