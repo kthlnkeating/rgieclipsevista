@@ -21,6 +21,7 @@ import com.raygroupintl.m.struct.MRefactorSettings;
 import com.raygroupintl.m.struct.MRoutineContent;
 import com.raygroupintl.m.token.MRoutine;
 import com.raygroupintl.m.token.MTFSupply;
+import com.raygroupintl.m.token.MVersion;
 import com.raygroupintl.m.token.TFRoutine;
 
 public class ExpandKeywords implements IObjectActionDelegate {
@@ -55,9 +56,11 @@ public class ExpandKeywords implements IObjectActionDelegate {
 						ITextFileBuffer buffer = mgr.getTextFileBuffer(path, LocationKind.IFILE);
 						if (buffer != null) {							
 							InputStream is = this.lastSelected.getContents();
-							MTFSupply m = new MTFSupply();
+							MTFSupply m = MTFSupply.getInstance(MVersion.CACHE);
 							TFRoutine tf = new TFRoutine(m);
-							MRoutineContent content = MRoutineContent.getInstance(path.lastSegment().split(".m")[0], is);
+							String lastSegment = path.lastSegment();
+							String routineName = lastSegment.split("\\.m")[0];
+							MRoutineContent content = MRoutineContent.getInstance(routineName, is);
 							MRoutine r = tf.tokenize(content);
 							is.close();
 							MRefactorSettings settings = new MRefactorSettings();
