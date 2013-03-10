@@ -24,10 +24,7 @@ import com.raygroupintl.m.token.MTFSupply;
 import com.raygroupintl.m.token.MVersion;
 import com.raygroupintl.m.token.TFRoutine;
 
-public class ExpandKeywords implements IObjectActionDelegate {
-
-	private Shell shell;
-	private IFile lastSelected;
+public class ExpandKeywords extends BaseAction {
 	
 	/**
 	 * Constructor for BeautifyAction.
@@ -37,15 +34,9 @@ public class ExpandKeywords implements IObjectActionDelegate {
 	}
 
 	/**
-	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-	 */
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		shell = targetPart.getSite().getShell();
-	}
-
-	/**
 	 * @see IActionDelegate#run(IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		if (this.lastSelected != null) {
 			try {
@@ -87,20 +78,6 @@ public class ExpandKeywords implements IObjectActionDelegate {
 		}
 	}
 
-	/**
-	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
-	 */
-	public void selectionChanged(IAction action, ISelection selection) {
-		this.lastSelected = null;
-		if (selection instanceof TreeSelection) {
-			TreeSelection ts = (TreeSelection) selection;
-			TreePath[] paths = ts.getPaths();
-			TreePath path = paths[paths.length-1];
-			Object lastSegment = path.getLastSegment();
-			if (lastSegment instanceof IFile) {
-				this.lastSelected = (IFile) lastSegment;
-			}
-		}
-	}
+
 
 }
