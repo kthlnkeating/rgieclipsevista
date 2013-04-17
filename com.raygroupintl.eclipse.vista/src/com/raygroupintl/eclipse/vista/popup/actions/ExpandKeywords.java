@@ -6,16 +6,9 @@ import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.filebuffers.ITextFileBuffer;
 import org.eclipse.core.filebuffers.ITextFileBufferManager;
 import org.eclipse.core.filebuffers.LocationKind;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.TreePath;
-import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
 
 import com.raygroupintl.m.struct.MRefactorSettings;
 import com.raygroupintl.m.struct.MRoutineContent;
@@ -61,16 +54,6 @@ public class ExpandKeywords extends BaseAction {
 						}												
 					}					
 				}
-				/*
-				InputStream is = this.lastSelected.getContents();
-				Routine r = Routine.getInstance(is);
-				is.close();
-				r.beautify();
-				ByteArrayOutputStream out = new ByteArrayOutputStream();
-				r.write(out);
-				ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-				this.lastSelected.setContents(in, false, true, null);				
-				*/
 			} catch (Exception t) {
 				String msg = this.lastSelected == null ? "Unexpected error: " : "Unexpected error beautifying " + this.lastSelected.getName() + " :";
 				MessageDialog.openInformation(this.shell, "Vista", msg);
