@@ -10,7 +10,6 @@ import org.eclipse.ui.console.IConsoleView;
 import org.eclipse.ui.console.MessageConsole;
 
 public class MRAToolConsole {
-	
 	private static MessageConsole messageConsole;
 
 	public static MessageConsole getMessageConsole() {
@@ -20,7 +19,6 @@ public class MRAToolConsole {
 			try {
 				consoleView = (IConsoleView) page.showView(IConsoleConstants.ID_CONSOLE_VIEW);
 			} catch (PartInitException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return null;
 			}

@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.widgets.Text;
 
 public class SWTTextOutputStream extends OutputStream {
-
 	private StyledText text;
 	
 	public SWTTextOutputStream(StyledText text) {
@@ -17,9 +15,7 @@ public class SWTTextOutputStream extends OutputStream {
 	@Override
 	public void write(int b) throws IOException {
 		if (text == null || text.isDisposed())
-			return;
-		
+			return;		
 		text.append(String.valueOf((char) b));
 	}
-
 }
