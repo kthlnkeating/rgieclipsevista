@@ -38,11 +38,25 @@
             </separator>
          </menu>
          <action
+               class="com.raygroupintl.eclipse.vista.popup.actions.VPAAssumedVariablesTool"
+               enablesFor="+"
+               id="com.raygroupintl.eclipse.vista.newAction"
+               label="Assumed Variable"
+               menubarPath="com.raygroupintl.eclipse.vista.mtools/parent">
+         </action>
+         <action
                label="Quit Type"
                class="com.raygroupintl.eclipse.vista.popup.actions.VPAQuitTypeTool"
                menubarPath="com.raygroupintl.eclipse.vista.mtools/parent"
                enablesFor="+"
                id="com.raygroupintl.eclipse.vista.newAction">
+         </action>
+         <action
+               class="com.raygroupintl.eclipse.vista.popup.actions.VPAOccurancesTool"
+               enablesFor="+"
+               id="com.raygroupintl.eclipse.vista.newAction"
+               label="Occurance"
+               menubarPath="com.raygroupintl.eclipse.vista.mtools/parent">
          </action>
       </objectContribution>
 
