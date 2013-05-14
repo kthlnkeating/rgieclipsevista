@@ -26,22 +26,22 @@
       </objectContribution>
 
       <objectContribution
-            id="com.raygroupintl.eclipse.vista.contribution2"
+            id="com.raygroupintl.eclipse.vista.mtoolscontribution"
             nameFilter="*.m"
             objectClass="org.eclipse.core.resources.IFile">
          <menu
-               label="M Validations"
+               label="M Tools"
                path="additions"
-               id="com.raygroupintl.eclipse.vista.menu2">
+               id="com.raygroupintl.eclipse.vista.mtools">
             <separator
-                  name="group2">
+                  name="parent">
             </separator>
          </menu>
          <action
-               label="Validate Fanouts"
-               class="com.raygroupintl.eclipse.vista.popup.actions.ValidateFanouts"
-               menubarPath="com.raygroupintl.eclipse.vista.menu2/group2"
-               enablesFor="1"
+               label="Quit Type"
+               class="com.raygroupintl.eclipse.vista.popup.actions.VPAQuitTypeTool"
+               menubarPath="com.raygroupintl.eclipse.vista.mtools/parent"
+               enablesFor="+"
                id="com.raygroupintl.eclipse.vista.newAction">
          </action>
       </objectContribution>

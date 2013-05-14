@@ -18,7 +18,7 @@ import com.raygroupintl.m.tool.entry.quittype.QuitTypeTool;
 import com.raygroupintl.output.OSTerminal;
 import com.raygroupintl.output.Terminal;
 
-public class ValidateFanouts extends BaseAction {
+public class VPAQuitTypeTool extends BaseAction {
 	@Override
 	public void run(IAction arg0) {
 		try {
