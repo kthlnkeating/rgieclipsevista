@@ -58,6 +58,13 @@
                label="Occurance"
                menubarPath="com.raygroupintl.eclipse.vista.mtools/parent">
          </action>
+         <action
+               class="com.raygroupintl.eclipse.vista.popup.actions.VPAErrorTool"
+               enablesFor="+"
+               id="com.raygroupintl.eclipse.vista.newAction"
+               label="Error"
+               menubarPath="com.raygroupintl.eclipse.vista.mtools/parent">
+         </action>
       </objectContribution>
 
 

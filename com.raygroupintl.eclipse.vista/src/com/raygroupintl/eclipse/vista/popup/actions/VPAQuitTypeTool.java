@@ -8,7 +8,7 @@ import com.raygroupintl.m.tool.entry.MEntryToolResult;
 import com.raygroupintl.m.tool.entry.quittype.QuitType;
 import com.raygroupintl.m.tool.entry.quittype.QuitTypeTool;
 
-public class VPAQuitTypeTool extends VPAEntryTool<QuitType> {
+public class VPAQuitTypeTool extends VPATool {
 	@Override
 	protected MEntryToolResult<QuitType> getResult(ParseTreeSupply pts, List<String> selectedFileNames) {
 		CommonToolParams params = new CommonToolParams(pts);

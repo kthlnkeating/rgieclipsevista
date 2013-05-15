@@ -2,13 +2,22 @@ package com.raygroupintl.eclipse.vista.popup.actions;
 
 import java.util.List;
 
+import com.raygroupintl.m.tool.OutputFlags;
 import com.raygroupintl.m.tool.ParseTreeSupply;
 import com.raygroupintl.m.tool.entry.MEntryToolResult;
 import com.raygroupintl.m.tool.entry.assumedvariables.AssumedVariables;
 import com.raygroupintl.m.tool.entry.assumedvariables.AssumedVariablesTool;
 import com.raygroupintl.m.tool.entry.assumedvariables.AssumedVariablesToolParams;
 
-public class VPAAssumedVariablesTool extends VPAEntryTool<AssumedVariables> {
+public class VPAAssumedVariablesTool extends VPATool {
+	@Override
+	protected OutputFlags getOutputFlags() {
+		OutputFlags fs = new OutputFlags();
+		fs.setSkipEmpty(true);
+		fs.setShowDetail(true);
+		return fs;
+	}
+	
 	@Override
 	protected MEntryToolResult<AssumedVariables> getResult(ParseTreeSupply pts, List<String> selectedFileNames) {
 		AssumedVariablesToolParams params = new AssumedVariablesToolParams(pts);
