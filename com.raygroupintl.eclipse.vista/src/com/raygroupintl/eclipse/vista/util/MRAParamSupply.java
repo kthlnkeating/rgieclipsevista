@@ -7,9 +7,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
-import com.raygroupintl.m.tool.ParseTreeSupply;
 import com.raygroupintl.m.tool.SourceCodeFiles;
-import com.raygroupintl.m.tool.SourceCodeToParseTreeAdapter;
 
 public class MRAParamSupply {
 	private static void updateForResource(IResource resource, SourceCodeFiles scf) throws CoreException {
@@ -17,7 +15,7 @@ public class MRAParamSupply {
 			IFile file = (IFile) resource;
 			String name = resource.getName();
 			if (name.endsWith(".m")) {
-				String filePath = file.getLocation().toString();
+				String filePath = file.getProjectRelativePath().toString();
 				name = name.substring(0, name.length()-2);
 				scf.put(name, filePath);
 			}
@@ -36,10 +34,10 @@ public class MRAParamSupply {
 		}		
 	}
 
-	public static ParseTreeSupply getParseTreeSupply(IProject project) throws CoreException {
-		SourceCodeFiles scf = new SourceCodeFiles();
+	public static SourceCodeFiles getSourceCodeFiles(IProject project) throws CoreException {
+		String root = project.getLocation().toString();
+		SourceCodeFiles scf = new SourceCodeFiles(root);
 		updateForContainer(project, scf);
-		ParseTreeSupply result = new SourceCodeToParseTreeAdapter(scf);
-		return result;		
+		return scf;
 	}
 }

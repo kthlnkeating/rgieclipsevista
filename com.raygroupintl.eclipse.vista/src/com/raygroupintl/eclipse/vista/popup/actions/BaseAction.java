@@ -13,12 +13,14 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
 
 public abstract class BaseAction implements IObjectActionDelegate {
 	protected IFile lastSelected;
 	protected TreePath[] selections;
 	protected Shell shell;
 	protected IProject project;
+	protected IWorkbenchWindow window;
 
 	protected List<String> getFileNames() {
 		if (this.selections == null) {
@@ -47,6 +49,7 @@ public abstract class BaseAction implements IObjectActionDelegate {
 	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+		this.window = targetPart.getSite().getWorkbenchWindow();
 		shell = targetPart.getSite().getShell();
 	}
 
