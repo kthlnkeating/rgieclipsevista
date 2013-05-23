@@ -65,7 +65,7 @@ public class MToolsPatternMatchListener implements IPatternMatchListener {
 					String filePath = this.scf.get(routineName);
 					IPath path = Path.fromOSString(filePath);
 					IFile file = (IFile) this.project.findMember(path);
-					MFileLink link = new MFileLink(this.window, file, lineNumber);
+					MFileLink link = new MFileLink(this.window, file, lineNumber+1);
 					console.addHyperlink(link, offset, length);
 				} catch (BadLocationException e){
 					return;
