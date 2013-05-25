@@ -69,6 +69,46 @@
 
 
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.raygroupintl.eclipse.vista.CheckMErrorsDefaultHandler"
+            id="com.raygroupintl.eclipse.vista.checkMErrors"
+            name="Check M Errors">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="true"
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+         <menu
+               commandId="com.raygroupintl.eclipse.vista.checkMErrors"
+               id="CheckMError"
+               label="Check M Errors"
+               mnemonic="CheckMError">
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.checkMErrors"
+                  label="Check M Errors"
+                  style="push">
+            </command>
+         </menu>
+         <command
+               commandId="com.raygroupintl.eclipse.vista.checkMErrors"
+               label="Check M Errors"
+               style="push">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:com.com.com?after=additions">
+         <command
+               commandId="com.raygroupintl.eclipse.vista.checkMErrors"
+               label="Check M Errors"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
    <!--extension
          point="org.eclipse.ui.views">
       <category
