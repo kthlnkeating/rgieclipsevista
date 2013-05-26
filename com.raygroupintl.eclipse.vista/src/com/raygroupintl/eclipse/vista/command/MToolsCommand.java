@@ -1,4 +1,4 @@
-package com.raygroupintl.eclipse.vista;
+package com.raygroupintl.eclipse.vista.command;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreePath;
@@ -31,14 +30,11 @@ import com.raygroupintl.m.tool.ParseTreeSupply;
 import com.raygroupintl.m.tool.SourceCodeFiles;
 import com.raygroupintl.m.tool.SourceCodeToParseTreeAdapter;
 import com.raygroupintl.m.tool.ToolResult;
-import com.raygroupintl.m.tool.routine.MRoutineToolInput;
-import com.raygroupintl.m.tool.routine.RoutineToolParams;
-import com.raygroupintl.m.tool.routine.error.ErrorTool;
 import com.raygroupintl.output.OSTerminal;
 import com.raygroupintl.output.Terminal;
 import com.raygroupintl.output.TerminalFormatter;
 
-public class CheckMErrorsDefaultHandler extends AbstractHandler {
+abstract class MToolsCommand extends AbstractHandler{
 	protected List<String> getFileNames(TreePath[] selections) {
 		if (selections == null) {
 			return null;
@@ -61,15 +57,8 @@ public class CheckMErrorsDefaultHandler extends AbstractHandler {
 			return result;
 		}
 	}
-
-	protected ToolResult getResult(ParseTreeSupply pts, List<String> selectedFileNames) {
-		RoutineToolParams p = new RoutineToolParams(pts);
-		ErrorTool tool = new ErrorTool(p);
-		MRoutineToolInput input = new MRoutineToolInput();
-		input.addRoutines(selectedFileNames);
-		ToolResult result = tool.getResult(input);
-		return result;
-	}
+	
+	protected abstract ToolResult getResult(ParseTreeSupply pts, List<String> selectedFileNames);
 
 	protected OutputFlags getOutputFlags() {
 		OutputFlags fs = new OutputFlags();
@@ -93,7 +82,7 @@ public class CheckMErrorsDefaultHandler extends AbstractHandler {
 		result.write(t, flags);	
 		MToolsConsoleHandler.displayMToolsConsole();
 	}
-
+	
 	public void run(IWorkbenchWindow window, Shell shell, IProject project, TreePath[] selections) {
 		try {
 			List<String> selectedFileNames = this.getFileNames(selections);

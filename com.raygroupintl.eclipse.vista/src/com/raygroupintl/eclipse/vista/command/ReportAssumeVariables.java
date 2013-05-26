@@ -1,4 +1,4 @@
-package com.raygroupintl.eclipse.vista.popup.actions;
+package com.raygroupintl.eclipse.vista.command;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import com.raygroupintl.m.tool.entry.assumedvariables.AssumedVariables;
 import com.raygroupintl.m.tool.entry.assumedvariables.AssumedVariablesTool;
 import com.raygroupintl.m.tool.entry.assumedvariables.AssumedVariablesToolParams;
 
-public class VPAAssumedVariablesTool extends VPATool {
+public class ReportAssumeVariables extends MToolsCommand {
 	@Override
 	protected OutputFlags getOutputFlags() {
 		OutputFlags fs = new OutputFlags();

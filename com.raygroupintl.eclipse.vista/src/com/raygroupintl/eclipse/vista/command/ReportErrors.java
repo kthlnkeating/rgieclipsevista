@@ -1,4 +1,4 @@
-package com.raygroupintl.eclipse.vista.popup.actions;
+package com.raygroupintl.eclipse.vista.command;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.raygroupintl.m.tool.routine.MRoutineToolInput;
 import com.raygroupintl.m.tool.routine.RoutineToolParams;
 import com.raygroupintl.m.tool.routine.error.ErrorTool;
 
-public class VPAErrorTool extends VPATool {
+public class ReportErrors extends MToolsCommand {
 	@Override
 	protected ToolResult getResult(ParseTreeSupply pts, List<String> selectedFileNames) {
 		RoutineToolParams p = new RoutineToolParams(pts);

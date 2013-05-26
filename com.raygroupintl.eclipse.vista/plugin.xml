@@ -25,88 +25,79 @@
          </action>
       </objectContribution>
 
-      <objectContribution
-            id="com.raygroupintl.eclipse.vista.mtoolscontribution"
-            nameFilter="*.m"
-            objectClass="org.eclipse.core.resources.IFile">
-         <menu
-               label="M Tools"
-               path="additions"
-               id="com.raygroupintl.eclipse.vista.mtools">
-            <separator
-                  name="parent">
-            </separator>
-         </menu>
-         <action
-               class="com.raygroupintl.eclipse.vista.popup.actions.VPAAssumedVariablesTool"
-               enablesFor="+"
-               id="com.raygroupintl.eclipse.vista.newAction"
-               label="Assumed Variable"
-               menubarPath="com.raygroupintl.eclipse.vista.mtools/parent">
-         </action>
-         <action
-               label="Quit Type"
-               class="com.raygroupintl.eclipse.vista.popup.actions.VPAQuitTypeTool"
-               menubarPath="com.raygroupintl.eclipse.vista.mtools/parent"
-               enablesFor="+"
-               id="com.raygroupintl.eclipse.vista.newAction">
-         </action>
-         <action
-               class="com.raygroupintl.eclipse.vista.popup.actions.VPAOccurancesTool"
-               enablesFor="+"
-               id="com.raygroupintl.eclipse.vista.newAction"
-               label="Occurance"
-               menubarPath="com.raygroupintl.eclipse.vista.mtools/parent">
-         </action>
-         <action
-               class="com.raygroupintl.eclipse.vista.popup.actions.VPAErrorTool"
-               enablesFor="+"
-               id="com.raygroupintl.eclipse.vista.newAction"
-               label="Error"
-               menubarPath="com.raygroupintl.eclipse.vista.mtools/parent">
-         </action>
-      </objectContribution>
 
 
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="com.raygroupintl.eclipse.vista.CheckMErrorsDefaultHandler"
-            id="com.raygroupintl.eclipse.vista.checkMErrors"
-            name="Check M Errors">
+            defaultHandler="com.raygroupintl.eclipse.vista.command.ReportAssumeVariables"
+            id="com.raygroupintl.eclipse.vista.assumevariable"
+            name="Report Assume Variables">
+      </command>
+      <command
+            defaultHandler="com.raygroupintl.eclipse.vista.command.ReportErrors"
+            id="com.raygroupintl.eclipse.vista.error"
+            name="Report Errors">
+      </command>
+      <command
+            defaultHandler="com.raygroupintl.eclipse.vista.command.ReportOccurances"
+            id="com.raygroupintl.eclipse.vista.occurance"
+            name="Report Occurances">
+      </command>
+      <command
+            defaultHandler="com.raygroupintl.eclipse.vista.command.ValidateQuitTypes"
+            id="com.raygroupintl.eclipse.vista.quittype"
+            name="Validate Quit Types">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            allPopups="true"
-            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+            allPopups="false"
+            locationURI="popup:gov.va.med.iss.meditor.editors.outline.contextmenu?after=additions">
          <menu
-               commandId="com.raygroupintl.eclipse.vista.checkMErrors"
-               id="CheckMError"
-               label="Check M Errors"
-               mnemonic="CheckMError">
+               label="M Tools">
             <command
-                  commandId="com.raygroupintl.eclipse.vista.checkMErrors"
-                  label="Check M Errors"
+                  commandId="com.raygroupintl.eclipse.vista.assumevariable"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.error"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.occurance"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.quittype"
                   style="push">
             </command>
          </menu>
-         <command
-               commandId="com.raygroupintl.eclipse.vista.checkMErrors"
-               label="Check M Errors"
-               style="push">
-         </command>
       </menuContribution>
       <menuContribution
             allPopups="false"
-            locationURI="popup:com.com.com?after=additions">
-         <command
-               commandId="com.raygroupintl.eclipse.vista.checkMErrors"
-               label="Check M Errors"
-               style="push">
-         </command>
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu?after=additions">
+         <menu
+               label="M Tools">
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.assumevariable"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.error"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.occurance"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.quittype"
+                  style="push">
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <!--extension
