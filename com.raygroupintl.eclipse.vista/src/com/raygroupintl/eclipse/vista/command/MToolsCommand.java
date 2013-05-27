@@ -10,12 +10,13 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.console.IPatternMatchListener;
 import org.eclipse.ui.console.MessageConsole;
@@ -25,6 +26,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import com.raygroupintl.eclipse.vista.toolconsole.MToolsConsoleHandler;
 import com.raygroupintl.eclipse.vista.toolconsole.MToolsPatternMatchListener;
 import com.raygroupintl.eclipse.vista.util.MRAParamSupply;
+import com.raygroupintl.m.parsetree.data.EntryId;
 import com.raygroupintl.m.tool.OutputFlags;
 import com.raygroupintl.m.tool.ParseTreeSupply;
 import com.raygroupintl.m.tool.SourceCodeFiles;
@@ -59,6 +61,8 @@ abstract class MToolsCommand extends AbstractHandler{
 	}
 	
 	protected abstract ToolResult getResult(ParseTreeSupply pts, List<String> selectedFileNames);
+
+	protected abstract ToolResult getResult(ParseTreeSupply pts, EntryId entryId);
 
 	protected OutputFlags getOutputFlags() {
 		OutputFlags fs = new OutputFlags();
@@ -103,20 +107,17 @@ abstract class MToolsCommand extends AbstractHandler{
 		}
 	}
 
-	public void run(IWorkbenchWindow window, Shell shell, IProject project, IFile file) {
+	public void run(IWorkbenchWindow window, Shell shell, IProject project, IFile file, String tag) {
 		try {
 			SourceCodeFiles scf = MRAParamSupply.getSourceCodeFiles(project);
 			SourceCodeToParseTreeAdapter pts = new SourceCodeToParseTreeAdapter(scf);
-			List<String> fileNames = new ArrayList<String>();
 			String name = file.getName();
 			if (name.endsWith(".m")) {
 				name = name.substring(0, name.length()-2);
-				fileNames.add(name);
-			} else {
-				return;
+				EntryId entryId = new EntryId(name, tag);
+				ToolResult result = this.getResult(pts, entryId);
+				this.writeResult(project, window, result, scf);
 			}
-			ToolResult result = this.getResult(pts, fileNames);
-			this.writeResult(project, window, result, scf);
 		} catch (Exception e) {
 			e.printStackTrace();
 			String msg = "Unexpected error.";
@@ -138,13 +139,17 @@ abstract class MToolsCommand extends AbstractHandler{
 				IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
 				Shell shell = HandlerUtil.getActiveShell(event);
 				this.run(window, shell, project, selections);
-			} else if (lastSegment instanceof IAdaptable){
-				IAdaptable adaptable = (IAdaptable) lastSegment;
-				IFile file = (IFile) adaptable.getAdapter(IFile.class);
-				IProject project = file.getProject();
-				IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
-				Shell shell = HandlerUtil.getActiveShell(event);
-				this.run(window, shell, project, file);				
+			} else {
+				IEditorPart editorPart = HandlerUtil.getActiveEditor(event);
+				IEditorInput input = editorPart.getEditorInput();
+				IFile file = (IFile) input.getAdapter(IFile.class);
+				String tag = lastSegment.toString();
+				if (! (tag.startsWith(" ") || tag.startsWith(">"))) {
+					IProject project = file.getProject();
+					IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
+					Shell shell = HandlerUtil.getActiveShell(event);
+					this.run(window, shell, project, file, tag);
+				}
 			}
 		}
 		return null;
