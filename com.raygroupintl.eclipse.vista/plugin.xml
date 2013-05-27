@@ -3,32 +3,6 @@
 <plugin>
 
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="com.raygroupintl.eclipse.vista.contribution1"
-            nameFilter="*.m"
-            objectClass="org.eclipse.core.resources.IFile">
-         <menu
-               label="M Refactor"
-               path="additions"
-               id="com.raygroupintl.eclipse.vista.menu1">
-            <separator
-                  name="group1">
-            </separator>
-         </menu>
-         <action
-               label="Expand Keywords"
-               class="com.raygroupintl.eclipse.vista.popup.actions.ExpandKeywords"
-               menubarPath="com.raygroupintl.eclipse.vista.menu1/group1"
-               enablesFor="1"
-               id="com.raygroupintl.eclipse.vista.newAction">
-         </action>
-      </objectContribution>
-
-
-
-   </extension>
-   <extension
          point="org.eclipse.ui.commands">
       <command
             defaultHandler="com.raygroupintl.eclipse.vista.command.ReportAssumeVariables"
@@ -49,6 +23,11 @@
             defaultHandler="com.raygroupintl.eclipse.vista.command.ValidateQuitTypes"
             id="com.raygroupintl.eclipse.vista.quittype"
             name="Validate Quit Types">
+      </command>
+      <command
+            defaultHandler="com.raygroupintl.eclipse.vista.command.ExpandKeywords"
+            id="com.raygroupintl.eclipse.vista.expandkeywords"
+            name="Expand Keywords">
       </command>
    </extension>
    <extension
@@ -95,6 +74,17 @@
             </command>
             <command
                   commandId="com.raygroupintl.eclipse.vista.quittype"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:#TextEditorContext?after=additions">
+         <menu
+               label="Refactor">
+            <command
+                  commandId="com.raygroupintl.eclipse.vista.expandkeywords"
                   style="push">
             </command>
          </menu>
